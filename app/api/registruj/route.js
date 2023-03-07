@@ -1,18 +1,16 @@
 import { connectDB, disconnectDB, client } from "@/DB/main";
+import { NextResponse } from "next/server";
 
-export default async function GET(req, res) {
+export default async function POST(req, res) {
+  const data = req.data;
   try {
-    const data = req.body;
     await connectDB();
 
-    const d = client.db();
+    const db = client.db();
 
     const usersCollection = db.collection("users");
 
     const result = await usersCollection.insertOne(data);
-
-    client.close();
-
     res.status(201).json({ message: "User inserted" });
     disconnectDB();
   } catch (error) {
