@@ -9,19 +9,26 @@ const Login = () => {
   let emailRef = useRef();
   let passwordRef = useRef();
 
-  const submitRegisterHandler = async (e) => {
+  async function submitRegisterHandler(e) {
     e.preventDefault();
     console.log(emailRef.current.value);
     console.log(passwordRef.current.value);
 
-    fetch("/api/register", {
+    const response = await fetch("/api/registruj", {
       method: "POST",
       body: JSON.stringify({
         email: emailRef.current.value,
         password: passwordRef.current.value,
       }),
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
-  };
+
+    //const data = await response.json();
+
+    //console.log(data);
+  }
 
   return (
     <div className="box">
